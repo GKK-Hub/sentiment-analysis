@@ -1,0 +1,35 @@
+import joblib
+import numpy as np
+from preprocess import preprocess
+from flask import Flask, request, jsonify
+
+
+app = Flask(__name__)
+
+model = joblib.load('model.joblib')
+vectorizer = joblib.load('tf-idf.joblib')
+
+@app.route("/predict", methods=["POST"])
+def predict():
+
+    data = request.get_json()  # Reading the incoming json data. 
+
+    reviews = data['reviews']  # Extract the feature values from the message
+
+    process_review = preprocess(reviews)
+
+    process_review = vectorizer.transform([process_review])
+
+    prediction = model.predict(process_review)
+
+    return jsonify({"prediction": prediction[0]})
+    
+
+
+@app.route("/health", methods=['GET'])
+def health():
+    return jsonify({"status": "ok"})
+
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=5000)
+    
