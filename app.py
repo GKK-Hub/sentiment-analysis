@@ -1,9 +1,3 @@
-import nltk
-nltk.download('stopwords', quiet=True)
-nltk.download('wordnet',   quiet=True)
-nltk.download('punkt',     quiet=True)
-
-
 import os
 import joblib
 import numpy as np
