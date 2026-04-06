@@ -10,7 +10,7 @@ from nltk.corpus import movie_reviews, stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
-stop_words = stopwords.words('English')
+stop_words = stopwords.words('english')
 lemmatizer = WordNetLemmatizer()
 
 
